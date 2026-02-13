@@ -100,15 +100,18 @@ app.post('/cook', async (req, res) => {
         log('Base framework ready', 'success')
 
         if (Array.isArray(packages) && packages.length) {
+            // Append @latest to each package to ensure latest versions are installed
+            const packagesWithLatest = packages.map(pkg => `${pkg}@latest`)
+
             const args =
                 manager === 'npm'
-                    ? ['install', ...packages]
+                    ? ['install', ...packagesWithLatest]
                     : manager === 'pnpm'
-                        ? ['add', ...packages]
-                        : ['add', ...packages]
+                        ? ['add', ...packagesWithLatest]
+                        : ['add', ...packagesWithLatest]
 
             await run(manager, args)
-            log(`Installed packages: ${packages.join(', ')}`, 'success')
+            log(`Installed packages (latest): ${packages.join(', ')}`, 'success')
         }
 
         io.emit('cooking_complete', { success: true })

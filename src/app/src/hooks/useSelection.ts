@@ -3,6 +3,7 @@ import { INGREDIENTS, type Ingredient } from '../constants/ingredients.js'
 import { RULES } from '../constants/rules.js'
 
 export type Step =
+  | 'package manager'
   | 'foundation'
   | 'styling'
   | 'state'
@@ -11,6 +12,7 @@ export type Step =
   | 'cooking'
 
 const STEPS: Step[] = [
+  'package manager',
   'foundation',
   'styling',
   'state',
@@ -20,10 +22,12 @@ const STEPS: Step[] = [
 ]
 
 export function useSelection() {
-  const [currentStep, setCurrentStep] = useState<Step>('foundation')
+  const [currentStep, setCurrentStep] = useState<Step>('package manager')
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [logs, setLogs] = useState<{ message: string; type: string }[]>([])
   const [isCooking, setIsCooking] = useState(false)
+
+  const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm'>('npm')
 
   const toggleSelection = (id: string) => {
     const ingredient = INGREDIENTS.find(
@@ -34,8 +38,10 @@ export function useSelection() {
     const next = new Set(selectedIds)
 
     if (next.has(id)) {
+      // Item is currently selected, so uncheck it
       next.delete(id)
     } else {
+      // Item is not selected, so select it
       if (ingredient.exclusiveGroup) {
         INGREDIENTS.filter(
           (i: Ingredient) => i.exclusiveGroup === ingredient.exclusiveGroup
@@ -65,6 +71,9 @@ export function useSelection() {
   )
 
   const canAdvance = useMemo(() => {
+    if (currentStep === 'package manager') {
+      return true // Always allow advancing from manager step
+    }
     if (currentStep === 'foundation') {
       return selectedIngredients.some(
         (i: Ingredient) => i.category === 'foundation'
@@ -81,7 +90,17 @@ export function useSelection() {
     }
   }
 
+  const goBackStep = () => {
+    const idx = STEPS.indexOf(currentStep)
+    if (idx > 0) {
+      setCurrentStep(STEPS[idx - 1])
+    }
+  }
+
   const isDisabled = (ingredient: Ingredient) => {
+    // Foundation ingredients should never be disabled
+    if (ingredient.category === 'foundation') return false
+
     const foundation = selectedIngredients.find(
       (i: Ingredient) => i.category === 'foundation'
     )
@@ -104,7 +123,10 @@ export function useSelection() {
     setIsCooking,
     toggleSelection,
     advanceStep,
+    goBackStep,
     canAdvance,
-    isDisabled
+    isDisabled,
+    packageManager,
+    setPackageManager
   }
 }

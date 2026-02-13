@@ -10,7 +10,7 @@ export const Stepper: React.FC<Props> = ({ steps, currentStep }) => {
 	const currentIndex = steps.indexOf(currentStep);
 
 	return (
-		<div className="flex items-center justify-center w-full max-w-2xl mx-auto mb-12">
+		<div className="flex items-center justify-center w-full max-w-2xl mx-auto mb-12 pb-6">
 			{steps.map((step, idx) => {
 				const isCompleted = idx < currentIndex;
 				const isCurrent = idx === currentIndex;

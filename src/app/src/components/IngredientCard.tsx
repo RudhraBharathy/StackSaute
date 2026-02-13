@@ -9,17 +9,23 @@ interface Props {
 }
 
 export const IngredientCard: React.FC<Props> = ({ ingredient, isSelected, isDisabled, onToggle }) => {
+  const handleClick = () => {
+    if (!isDisabled) {
+      onToggle(ingredient.id);
+    }
+  };
+
   return (
     <div
-      onClick={() => !isDisabled && onToggle(ingredient.id)}
+      onClick={handleClick}
       className={`
-        p-6 rounded-xl border-2 transition-all duration-300 cursor-pointer text-left h-full group
+        p-6 rounded-xl border-2 transition-all duration-300 text-left h-full group
         flex flex-col gap-4 relative overflow-hidden
         ${isDisabled
           ? 'border-gray-800 bg-gray-900/50 opacity-40 cursor-not-allowed'
-          : isSelected
+          : 'cursor-pointer ' + (isSelected
             ? 'border-orange-500 bg-orange-500/10 shadow-[0_0_20px_rgba(249,115,22,0.2)]'
-            : 'border-gray-800 bg-gray-900 hover:border-gray-600 hover:bg-gray-800'
+            : 'border-gray-800 bg-gray-900 hover:border-gray-600 hover:bg-gray-800')
         }
       `}
     >
