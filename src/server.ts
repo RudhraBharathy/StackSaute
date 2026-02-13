@@ -147,7 +147,7 @@ function run(cmd: string, args: string[]): Promise<void> {
     })
 }
 
-const staticPath = path.resolve(__dirname, '../../src/app/dist')
+const staticPath = path.resolve(__dirname, '../app')
 
 app.use(express.static(staticPath))
 

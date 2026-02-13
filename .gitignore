@@ -137,3 +137,11 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Folders
+dist/
+src/app/dist/
+
+# Files
+stack-saute-*.tgz
+*.tgz

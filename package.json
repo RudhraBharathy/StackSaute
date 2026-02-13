@@ -10,8 +10,14 @@
   "scripts": {
     "build:backend": "tsc -p tsconfig.build.json",
     "build:frontend": "cd src/app && npm run build",
-    "build": "npm run build:backend && npm run build:frontend"
+    "postbuild": "rm -rf dist/app && mkdir -p dist/app && cp -R src/app/dist/* dist/app/",
+    "build": "npm run build:backend && npm run build:frontend && npm run postbuild",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "chalk": "^5.3.0",
     "cors": "^2.8.5",
@@ -29,5 +35,9 @@
     "nodemon": "^3.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
-  }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
 }
