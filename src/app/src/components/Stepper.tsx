@@ -17,7 +17,6 @@ export const Stepper: React.FC<Props> = ({ steps, currentStep }) => {
 
 				return (
 					<React.Fragment key={step}>
-						{/* Circle */}
 						<div className="relative z-10">
 							<div
 								className={`
@@ -35,7 +34,6 @@ export const Stepper: React.FC<Props> = ({ steps, currentStep }) => {
 							</div>
 						</div>
 
-						{/* Connecting Line */}
 						{idx < steps.length - 1 && (
 							<div className="flex-1 h-0.5 mx-2 bg-gray-800 relative w-12 md:w-24">
 								<div

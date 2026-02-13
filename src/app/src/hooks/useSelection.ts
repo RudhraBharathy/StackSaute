@@ -38,10 +38,8 @@ export function useSelection() {
     const next = new Set(selectedIds)
 
     if (next.has(id)) {
-      // Item is currently selected, so uncheck it
       next.delete(id)
     } else {
-      // Item is not selected, so select it
       if (ingredient.exclusiveGroup) {
         INGREDIENTS.filter(
           (i: Ingredient) => i.exclusiveGroup === ingredient.exclusiveGroup
@@ -98,7 +96,6 @@ export function useSelection() {
   }
 
   const isDisabled = (ingredient: Ingredient) => {
-    // Foundation ingredients should never be disabled
     if (ingredient.category === 'foundation') return false
 
     const foundation = selectedIngredients.find(

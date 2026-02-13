@@ -29,7 +29,6 @@ function App() {
     setPackageManager
   } = useSelection()
 
-  // Socket.IO connection for live logs
   useEffect(() => {
     const socket = io()
 
@@ -94,7 +93,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0f1115] text-white p-8 font-sans selection:bg-orange-500/30">
-      {/* Header */}
       <header className="mb-12 text-center">
         <div className="flex items-center justify-center gap-2">
           <img src="/ss-logo.svg" alt="StackSauté" className="w-12 h-12 mb-4" />
@@ -105,7 +103,6 @@ function App() {
       </header>
 
       <main className="max-w-5xl mx-auto">
-        {/* Stepper */}
         {!isCooking && (
           <Stepper
             steps={['package manager', 'foundation', 'styling', 'state', 'backend', 'review']}
@@ -113,7 +110,6 @@ function App() {
           />
         )}
 
-        {/* Package Manager Selection - Step 1 */}
         {!isCooking && currentStep === 'package manager' && (
           <div className="mt-8 animate-fade-in">
             <div className="mb-8 text-center">
@@ -185,7 +181,6 @@ function App() {
           </div>
         )}
 
-        {/* Ingredient Selection */}
         {!isCooking && currentStep !== 'review' && currentStep !== 'package manager' && (
           <div className="mt-8 animate-fade-in">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -224,7 +219,6 @@ function App() {
           </div>
         )}
 
-        {/* Review */}
         {!isCooking && currentStep === 'review' && (
           <Summary
             selectedIngredients={selectedIngredients}
@@ -235,7 +229,6 @@ function App() {
           />
         )}
 
-        {/* Live Logs */}
         {isCooking && (
           <div className="animate-fade-in">
             <div className="text-center mb-6">

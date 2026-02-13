@@ -11,13 +11,11 @@ interface Props {
 }
 
 export const Summary: React.FC<Props> = ({ selectedIngredients, packageManager, onCook, onBack, isLoading }) => {
-	// Group by category
 	const groups = {
 		foundation: selectedIngredients.filter(i => i.category === 'foundation'),
 		other: selectedIngredients.filter(i => i.category !== 'foundation')
 	};
 
-	// Package manager icon mapping
 	const packageManagerIcons = {
 		npm: SiNpm,
 		yarn: SiYarn,

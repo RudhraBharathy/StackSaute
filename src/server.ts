@@ -100,7 +100,6 @@ app.post('/cook', async (req, res) => {
         log('Base framework ready', 'success')
 
         if (Array.isArray(packages) && packages.length) {
-            // Append @latest to each package to ensure latest versions are installed
             const packagesWithLatest = packages.map(pkg => `${pkg}@latest`)
 
             const args =
