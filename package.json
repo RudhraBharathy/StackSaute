@@ -4,7 +4,7 @@
   "description": "A local-first developer tool for setting up production-grade stacks",
   "main": "dist/server.js",
   "bin": {
-    "stack-saute": "./dist/bin/cli.js"
+    "stack-saute": "dist/bin/cli.js"
   },
   "type": "module",
   "scripts": {
