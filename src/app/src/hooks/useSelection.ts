@@ -1,38 +1,54 @@
 import { useMemo, useState } from 'react'
 import { INGREDIENTS, type Ingredient } from '../constants/ingredients.js'
-import { RULES } from '../constants/rules.js'
 
 export type Step =
   | 'package manager'
   | 'foundation'
+  | 'viteTemplate'
+  | 'nextConfig'
   | 'styling'
   | 'state'
   | 'backend'
   | 'review'
-  | 'cooking'
-
-const STEPS: Step[] = [
-  'package manager',
-  'foundation',
-  'styling',
-  'state',
-  'backend',
-  'review',
-  'cooking'
-]
 
 export function useSelection() {
-  const [currentStep, setCurrentStep] = useState<Step>('package manager')
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [logs, setLogs] = useState<{ message: string; type: string }[]>([])
   const [isCooking, setIsCooking] = useState(false)
+  const [packageManager, setPackageManager] =
+    useState<'npm' | 'yarn' | 'pnpm'>('npm')
 
-  const [packageManager, setPackageManager] = useState<'npm' | 'yarn' | 'pnpm'>('npm')
+  const selectedIngredients = useMemo(
+    () => INGREDIENTS.filter(i => selectedIds.has(i.id)),
+    [selectedIds]
+  )
+
+  const foundation = selectedIngredients.find(
+    i => i.category === 'foundation'
+  )
+
+  const steps: Step[] = useMemo(() => {
+    const base: Step[] = ['package manager', 'foundation']
+
+    if (foundation?.id === 'vite') {
+      base.push('viteTemplate')
+    }
+
+    if (foundation?.id === 'nextjs') {
+      base.push('nextConfig')
+    }
+
+    base.push('styling', 'state', 'backend', 'review')
+
+    return base
+  }, [foundation])
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const currentStep = steps[currentIndex]
 
   const toggleSelection = (id: string) => {
-    const ingredient = INGREDIENTS.find(
-      (i: Ingredient) => i.id === id
-    )
+    const ingredient = INGREDIENTS.find(i => i.id === id)
     if (!ingredient) return
 
     const next = new Set(selectedIds)
@@ -42,69 +58,68 @@ export function useSelection() {
     } else {
       if (ingredient.exclusiveGroup) {
         INGREDIENTS.filter(
-          (i: Ingredient) => i.exclusiveGroup === ingredient.exclusiveGroup
-        ).forEach((i: Ingredient) => next.delete(i.id))
+          i => i.exclusiveGroup === ingredient.exclusiveGroup
+        ).forEach(i => next.delete(i.id))
       }
-
-      RULES.exclusions[
-        id as keyof typeof RULES.exclusions
-      ]?.forEach((conflict: string) => next.delete(conflict))
-
-      RULES.dependencies[
-        id as keyof typeof RULES.dependencies
-      ]?.forEach((dep: string) => next.add(dep))
-
       next.add(id)
     }
 
     setSelectedIds(next)
   }
 
-  const selectedIngredients = useMemo(
-    () =>
-      INGREDIENTS.filter((i: Ingredient) =>
-        selectedIds.has(i.id)
-      ),
-    [selectedIds]
-  )
-
   const canAdvance = useMemo(() => {
-    if (currentStep === 'package manager') {
-      return true // Always allow advancing from manager step
-    }
+    if (currentStep === 'package manager') return true
+
     if (currentStep === 'foundation') {
+      return !!foundation
+    }
+
+    if (currentStep === 'viteTemplate') {
       return selectedIngredients.some(
-        (i: Ingredient) => i.category === 'foundation'
+        i => i.category === 'viteTemplate'
       )
     }
+
+    if (currentStep === 'nextConfig') {
+      return selectedIngredients.some(
+        i =>
+          i.category === 'nextConfig' &&
+          (i.id === 'typescript' || i.id === 'javascript')
+      )
+    }
+
     return true
-  }, [currentStep, selectedIngredients])
+  }, [currentStep, foundation, selectedIngredients])
 
   const advanceStep = () => {
     if (!canAdvance) return
-    const idx = STEPS.indexOf(currentStep)
-    if (idx < STEPS.length - 1) {
-      setCurrentStep(STEPS[idx + 1])
+
+    if (foundation?.id === 'nextjs' && selectedIngredients.some(i => i.id === 'tailwind') && currentStep === 'nextConfig') {
+      setCurrentIndex(prev => prev + 1)
+    }
+
+    if (currentIndex < steps.length - 1) {
+      setCurrentIndex(prev => prev + 1)
     }
   }
 
   const goBackStep = () => {
-    const idx = STEPS.indexOf(currentStep)
-    if (idx > 0) {
-      setCurrentStep(STEPS[idx - 1])
+    if (foundation?.id === 'nextjs' && selectedIngredients.some(i => i.id === 'tailwind') && currentStep === 'state') {
+      setCurrentIndex(prev => prev - 1)
+    }
+
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1)
     }
   }
 
   const isDisabled = (ingredient: Ingredient) => {
-    if (ingredient.category === 'foundation') return false
+    if (ingredient.category === 'viteTemplate') {
+      return foundation?.id !== 'vite'
+    }
 
-    const foundation = selectedIngredients.find(
-      (i: Ingredient) => i.category === 'foundation'
-    )
-    if (!foundation) return false
-
-    if (ingredient.frameworks?.length) {
-      return !ingredient.frameworks.includes(foundation.id)
+    if (ingredient.category === 'nextConfig') {
+      return foundation?.id !== 'nextjs'
     }
 
     return false
@@ -112,6 +127,7 @@ export function useSelection() {
 
   return {
     currentStep,
+    steps,
     selectedIds,
     selectedIngredients,
     logs,

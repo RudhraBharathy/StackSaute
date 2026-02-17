@@ -17,7 +17,15 @@ const log = {
   error: (m: string) => console.log(chalk.red('🔥 ') + m)
 }
 
-async function waitForHealth(port: number, timeout = 8000) {
+function validateNodeVersion() {
+  const [major] = process.versions.node.split('.').map(Number)
+  if (major < 20) {
+    log.error('Node.js 20 or higher is required.')
+    process.exit(1)
+  }
+}
+
+function waitForHealth(port: number, timeout = 10000) {
   const start = Date.now()
 
   return new Promise<void>((resolve, reject) => {
@@ -43,6 +51,8 @@ async function waitForHealth(port: number, timeout = 8000) {
 }
 
 async function main() {
+  validateNodeVersion()
+
   const cwd = process.cwd()
   const port = await getPort({ port: 4000 })
 
@@ -60,9 +70,16 @@ async function main() {
     stdio: 'inherit'
   })
 
+  server.on('error', err => {
+    log.error(`Failed to start server: ${err.message}`)
+    process.exit(1)
+  })
+
   server.on('exit', code => {
-    log.error(`Server exited (${code})`)
-    process.exit(code ?? 1)
+    if (code !== 0) {
+      log.error(`Server exited unexpectedly (${code})`)
+      process.exit(code ?? 1)
+    }
   })
 
   try {
@@ -70,14 +87,17 @@ async function main() {
     const url = `http://localhost:${port}`
     log.success(`Serving at ${url}`)
     await open(url)
-  } catch (e) {
-    log.error((e as Error).message)
+  } catch (err) {
+    log.error((err as Error).message)
+    server.kill('SIGTERM')
     process.exit(1)
   }
 
   const cleanup = () => {
     log.info('Cleaning kitchen...')
-    server.kill()
+    if (!server.killed) {
+      server.kill('SIGTERM')
+    }
     process.exit(0)
   }
 
@@ -88,7 +108,8 @@ async function main() {
     process.stdin.setRawMode(true)
     process.stdin.resume()
     process.stdin.on('data', d => {
-      if (d.toString().toLowerCase() === 'q') cleanup()
+      const key = d.toString().toLowerCase()
+      if (key === 'q') cleanup()
     })
   }
 }

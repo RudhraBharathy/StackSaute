@@ -23,20 +23,3 @@ Run the CLI tool with the desired framework and options.
 ```bash
 npx stack-saute
 ```
-
-### Options
-
-- **Framework**: `react` or `nextjs`
-- **Package Manager**: `npm`, `pnpm`, or `yarn`
-- **TypeScript**: Enable or disable
-- **Packages**: List of additional packages to install
-
-### Example
-
-```bash
-npx stack-saute --framework react --manager pnpm --typescript --packages "tailwindcss,framer-motion,axios"
-```
-
-## License
-
-MIT © [Rudhra Bharathy]

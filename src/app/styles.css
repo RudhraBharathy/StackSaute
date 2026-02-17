@@ -5,7 +5,9 @@
     --color-brand-bg: #0f1115;
 }
 
-/* Custom Utilities if needed, though v4 handles most via classes */
+button {
+    cursor: pointer;
+}
 
 @layer utilities {
     .animate-fade-in {
@@ -31,6 +33,18 @@
     from {
         opacity: 0;
         transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
     }
 
     to {
