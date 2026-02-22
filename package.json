@@ -1,6 +1,6 @@
 {
   "name": "stack-saute",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A local-first developer tool for setting up production-grade stacks",
   "main": "dist/server.js",
   "bin": {
