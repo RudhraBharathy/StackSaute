@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StackSauté — Scaffold production-grade stacks beautifully</title>
+  <meta name="description"
+    content="Run npx stack-saute in any empty folder. Pick your framework, packages, and manager — then watch your project scaffold in real time." />
+  <meta property="og:title" content="StackSauté — Production-grade scaffolding, beautifully served" />
+  <meta property="og:description" content="Run npx stack-saute. Pick your stack. Watch it cook." />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥘</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ── Nav ───────────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        Stack<strong>Sauté</strong>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#foundations">Foundations</a></li>
+        <li><a href="#managers">Package Managers</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.npmjs.com/package/stack-saute" class="btn-ghost" target="_blank" rel="noopener">npm</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container">
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Local-first · No sign-up
+      </div>
+
+      <h1 class="hero-title">
+        <img src="ss-logo.svg" alt="StackSauté" width="90" height="90" />
+        <span class="light">Stack</span><span class="grad-text">Sauté</span>
+      </h1>
+
+      <p class="hero-sub">
+        Scaffold production-grade React &amp; Next.js projects with a beautiful local web UI —
+        framework, template, packages, all guided step-by-step.
+      </p>
+
+      <div class="cmd-pill">
+        <span class="cmd-dollar">$</span>
+        <span class="cmd-text">npx stack-saute</span>
+        <button class="copy-btn" data-copy="npx stack-saute">⎘ Copy</button>
+      </div>
+
+      <div class="hero-badges">
+        <a href="https://www.npmjs.com/package/stack-saute" target="_blank" rel="noopener">
+          <img src="https://img.shields.io/npm/v/stack-saute?color=f97316&label=npm&style=flat-square"
+            alt="npm version" />
+        </a>
+        <a href="https://www.npmjs.com/package/stack-saute" target="_blank" rel="noopener">
+          <img src="https://img.shields.io/npm/dm/stack-saute?color=22c55e&label=downloads%2Fmonth&style=flat-square"
+            alt="downloads" />
+        </a>
+        <img src="https://img.shields.io/badge/node-%3E%3D20-3d7a3d?style=flat-square" alt="node ≥20" />
+        <img src="https://img.shields.io/badge/license-MIT-555?style=flat-square" alt="MIT" />
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── How It Works ──────────────────────────────────────────── -->
+  <section id="how">
+    <div class="container">
+      <div class="reveal">
+        <p class="s-label">How It Works</p>
+        <h2 class="s-title">Four steps from zero to scaffold</h2>
+        <p class="s-sub">No CLI flags to memorize. No boilerplate to copy. One command and a guided UI.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <p class="step-n">01</p>
+          <span class="step-emoji">⚡</span>
+          <h3>Run the command</h3>
+          <p>Navigate to an empty folder and run <code>npx stack-saute</code>. A local server starts instantly.</p>
+        </div>
+        <div class="step-card reveal">
+          <p class="step-n">02</p>
+          <span class="step-emoji">🌐</span>
+          <h3>UI opens in browser</h3>
+          <p>A beautiful step-by-step interface launches automatically. No config files needed.</p>
+        </div>
+        <div class="step-card reveal">
+          <p class="step-n">03</p>
+          <span class="step-emoji">🎛️</span>
+          <h3>Pick your stack</h3>
+          <p>Choose your foundation, template, package manager, and extra packages in a guided stepper.</p>
+        </div>
+        <div class="step-card reveal">
+          <p class="step-n">04</p>
+          <span class="step-emoji">🔥</span>
+          <h3>Watch it cook</h3>
+          <p>Hit <strong>Cook</strong> and real-time logs stream back as your project scaffolds and installs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Foundations ───────────────────────────────────────────── -->
+  <section id="foundations">
+    <div class="container">
+      <div class="reveal">
+        <p class="s-label">Foundations</p>
+        <h2 class="s-title">Start with the right base</h2>
+        <p class="s-sub">Choose Vite for lightning-fast frontend tooling or Next.js for full-stack React.</p>
+      </div>
+
+      <div class="foundations-grid">
+        <div class="f-card reveal">
+          <div class="f-header">
+            <div class="f-logo">
+              <img src="https://cdn.simpleicons.org/vite/646cff" alt="Vite" />
+            </div>
+            <div>
+              <h3>Vite</h3>
+              <p class="f-desc">Next Generation Frontend Tooling</p>
+            </div>
+          </div>
+          <div class="tags">
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/react/61dafb" alt="React" />
+              React + JavaScript
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/react/61dafb" alt="React" />
+              React + TypeScript
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/vuedotjs/4fc08d" alt="Vue" />
+              Vue 3 + JavaScript
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/vuedotjs/4fc08d" alt="Vue" />
+              Vue 3 + TypeScript
+            </span>
+          </div>
+        </div>
+
+        <div class="f-card reveal">
+          <div class="f-header">
+            <div class="f-logo" style="background:#111; border-color:#333;">
+              <img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js" />
+            </div>
+            <div>
+              <h3>Next.js</h3>
+              <p class="f-desc">The React Framework for the Web</p>
+            </div>
+          </div>
+          <div class="tags">
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/typescript/3178c6" alt="TypeScript" />
+              TypeScript
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/javascript/f7df1e" alt="JavaScript" />
+              JavaScript
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/tailwindcss/06b6d4" alt="Tailwind" />
+              Tailwind CSS
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/eslint/4b32c3" alt="ESLint" />
+              ESLint
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/nextdotjs/aaa" alt="Next.js" />
+              src/ directory
+            </span>
+            <span class="tag">
+              <img src="https://cdn.simpleicons.org/nextdotjs/aaa" alt="Next.js" />
+              App Router
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Package Managers ──────────────────────────────────────── -->
+  <section id="managers">
+    <div class="container">
+      <div class="reveal">
+        <p class="s-label">Package Managers</p>
+        <h2 class="s-title">Your tool, your choice</h2>
+        <p class="s-sub">Pick npm, yarn, or pnpm. StackSauté auto-installs it if it's not already on your system.</p>
+      </div>
+
+      <div class="pm-grid">
+        <div class="pm-card reveal">
+          <div class="pm-logo">
+            <img src="https://cdn.simpleicons.org/npm/cb3837" alt="npm" />
+          </div>
+          <h3>npm</h3>
+          <p>The classic Node package manager</p>
+        </div>
+        <div class="pm-card reveal">
+          <div class="pm-logo">
+            <img src="https://cdn.simpleicons.org/yarn/2c8ebb" alt="yarn" />
+          </div>
+          <h3>yarn</h3>
+          <p>Fast, reliable, and secure</p>
+        </div>
+        <div class="pm-card reveal">
+          <div class="pm-logo">
+            <img src="https://cdn.simpleicons.org/pnpm/f69220" alt="pnpm" />
+          </div>
+          <h3>pnpm</h3>
+          <p>Disk-efficient &amp; blazing fast</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CTA ───────────────────────────────────────────────────── -->
+  <div class="cta-wrap">
+    <div class="cta-box reveal">
+      <h2>Ready to cook? 🥘</h2>
+      <p>One command. One empty folder. Your perfect stack, scaffolded in seconds.</p>
+
+      <div class="cta-cmd">
+        <span class="dollar">$</span>
+        <span class="cmd-txt">npx stack-saute</span>
+        <button class="copy-btn" data-copy="npx stack-saute" style="margin:4px;">⎘ Copy</button>
+      </div>
+
+      <br />
+      <a href="https://www.npmjs.com/package/stack-saute" class="cta-btn" target="_blank" rel="noopener">
+        View on npm →
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-mark">🥘</div>
+        StackSauté &nbsp;·&nbsp; MIT &nbsp;·&nbsp; Node ≥ 20
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://www.npmjs.com/package/stack-saute" target="_blank" rel="noopener">npm</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#foundations">Foundations</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
